@@ -7,9 +7,9 @@ import stellar_burgers.dataObjects.User;
 import static io.restassured.RestAssured.given;
 
 public class UserSteps {
-    private static final String CREATE = "auth/register";
+    private static final String REGISTER = "auth/register";
     private static final String LOGIN = "auth/login";
-    private static final String DELETE = "auth/user";
+    private static final String USER = "auth/user";
 
     @Step("Создание пользователя")
     public static Response  createUser(User user) {
@@ -17,7 +17,7 @@ public class UserSteps {
                 .contentType("application/json")
                 .header("Content-type", "application/json")
                 .body(user)
-                .post(CREATE);
+                .post(REGISTER);
     }
 
     @Step("Логин пользователя")
@@ -39,15 +39,29 @@ public class UserSteps {
         return given()
                 .contentType("application/json")
                 .header("Authorization", accessToken)
-                .delete(DELETE);
+                .delete(USER);
     }
 
     @Step("Удаление пользователя по токену")
     public static Response deleteUserByToken(User user) {
         String accessToken = getUserToken(user);
+        return deleteUser(accessToken);
+    }
+
+    @Step("Изменение данных авторизованного пользователя")
+    public static Response updateUser(User user, String token) {
         return given()
-                .contentType("application/json")
-                .header("Authorization", accessToken)
-                .delete(DELETE);
+                .header("Content-type", "application/json")
+                .header("Authorization", token)
+                .body(user)
+                .patch(USER);
+    }
+
+    @Step("Изменение данных неавторизованного пользователя")
+    public static Response updateUserWithoutAuth(User user) {
+        return given()
+                .header("Content-type", "application/json")
+                .body(user)
+                .patch(USER);
     }
 }

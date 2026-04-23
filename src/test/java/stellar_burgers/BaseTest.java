@@ -6,12 +6,16 @@ import org.junit.After;
 import org.junit.Before;
 import stellar_burgers.dataObjects.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static stellar_burgers.steps.UserSteps.deleteUserByToken;
 
 public class BaseTest {
     private final String BASE_URL = "https://stellarburgers.education-services.ru/api/";
 
     public User user;
+    public List<User> users = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -23,6 +27,11 @@ public class BaseTest {
     public void teardown() {
         if (user != null) {
             deleteUserByToken(user);
+        }
+        if (!users.isEmpty()) {
+            for(User u: users) {
+                deleteUserByToken(u);
+            }
         }
     }
 }
