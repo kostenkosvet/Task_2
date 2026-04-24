@@ -2,17 +2,18 @@ package stellar_burgers.steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import stellar_burgers.BaseTest;
 import stellar_burgers.dataObjects.User;
 
 import static io.restassured.RestAssured.given;
 
-public class UserSteps {
+public class UserSteps extends BaseTest {
     private static final String REGISTER = "auth/register";
     private static final String LOGIN = "auth/login";
     private static final String USER = "auth/user";
 
     @Step("Создание пользователя")
-    public static Response  createUser(User user) {
+    public static Response createUser(User user) {
         return given()
                 .contentType("application/json")
                 .header("Content-type", "application/json")
@@ -29,9 +30,15 @@ public class UserSteps {
                 .post(LOGIN);
     }
 
-    @Step("Логин пользователя")
+    @Step("Получение токена залогиненого юзера")
     public static String getUserToken(User user) {
         return loginUser(user).then().extract().path("accessToken");
+    }
+
+    @Step("Создание пользователя и получение токена")
+    public static String createUserAndGetToken(User user) {
+        createUser(user);
+        return getUserToken(user);
     }
 
     @Step("Удаление пользователя")

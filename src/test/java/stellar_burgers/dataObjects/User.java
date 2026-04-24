@@ -6,7 +6,8 @@ public class User {
     private String password;
     private String name;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String email, String password, String name) {
         this.email = email;
@@ -38,7 +39,15 @@ public class User {
         return this;
     }
 
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public String getName() { return name; }
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

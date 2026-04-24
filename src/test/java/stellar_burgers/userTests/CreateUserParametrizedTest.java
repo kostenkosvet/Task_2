@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static stellar_burgers.steps.UserSteps.createUser;
 
 @RunWith(Parameterized.class)
-public class CreateUserParametrizedTest  extends BaseTest {
+public class CreateUserParametrizedTest extends BaseTest {
     private final String fieldName;
     private final User incompleteUser;
 

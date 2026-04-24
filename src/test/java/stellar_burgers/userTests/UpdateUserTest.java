@@ -38,10 +38,8 @@ public class UpdateUserTest extends BaseTest {
         super.users.add(User.randomUser());
         super.users.add(User.randomUser());
 
-        createUser(users.get(0));
         createUser(users.get(1));
-
-        String token = getUserToken(users.get(0));
+        String token = createUserAndGetToken(users.get(0));
 
         User updatedUser = new User(
                 users.get(1).getEmail(),

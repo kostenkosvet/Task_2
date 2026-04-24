@@ -29,7 +29,7 @@ public class BaseTest {
             deleteUserByToken(user);
         }
         if (!users.isEmpty()) {
-            for(User u: users) {
+            for (User u : users) {
                 deleteUserByToken(u);
             }
         }

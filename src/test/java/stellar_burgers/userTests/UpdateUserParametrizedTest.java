@@ -12,7 +12,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static stellar_burgers.steps.UserSteps.*;
+import static stellar_burgers.steps.UserSteps.createUserAndGetToken;
+import static stellar_burgers.steps.UserSteps.updateUser;
 
 @RunWith(Parameterized.class)
 public class UpdateUserParametrizedTest extends BaseTest {
@@ -23,9 +24,9 @@ public class UpdateUserParametrizedTest extends BaseTest {
     private final boolean changeName;
 
     public UpdateUserParametrizedTest(String caseName,
-                                            boolean changeEmail,
-                                            boolean changePassword,
-                                            boolean changeName) {
+                                      boolean changeEmail,
+                                      boolean changePassword,
+                                      boolean changeName) {
         this.caseName = caseName;
         this.changeEmail = changeEmail;
         this.changePassword = changePassword;
@@ -46,9 +47,7 @@ public class UpdateUserParametrizedTest extends BaseTest {
     @DisplayName("Изменение данных пользователя")
     public void shouldUpdateUserFields() {
         super.user = User.randomUser();
-        createUser(super.user);
-
-        String token = getUserToken(super.user);
+        String token = createUserAndGetToken(super.user);
 
         String newEmail = changeEmail
                 ? "new" + System.currentTimeMillis() + "@mail.com"
